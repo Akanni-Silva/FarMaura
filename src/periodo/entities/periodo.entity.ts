@@ -1,5 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Remedio } from '../../remedio/entities/remedio.entity';
 
 @Entity({ name: 'tb_periodos' })
 export class Periodo {
@@ -13,4 +14,7 @@ export class Periodo {
   @IsNotEmpty()
   @Column({ type: 'time', nullable: false })
   horario: Date;
+
+  @OneToMany(() => Remedio, (remedio) => remedio.periodo)
+  remedios: Remedio[];
 }

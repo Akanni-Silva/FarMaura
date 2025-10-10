@@ -4,6 +4,8 @@ import { Usuario } from './usuario/entities/ususario.entity';
 import { UsuarioModule } from './usuario/usuario.module';
 import { PeriodoModule } from './periodo/periodo.module';
 import { Periodo } from './periodo/entities/periodo.entity';
+import { Remedio } from './remedio/entities/remedio.entity';
+import { RemediomModule } from './remedio/remedio.module';
 
 @Module({
   imports: [
@@ -14,11 +16,12 @@ import { Periodo } from './periodo/entities/periodo.entity';
       username: 'root',
       password: 'root',
       database: 'db_farmaura',
-      entities: [Usuario, Periodo],
+      entities: [Usuario, Periodo, Remedio],
       synchronize: true,
     }),
     UsuarioModule,
     PeriodoModule,
+    RemediomModule,
   ],
   controllers: [],
   providers: [],
