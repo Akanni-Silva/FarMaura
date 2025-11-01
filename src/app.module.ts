@@ -6,6 +6,8 @@ import { PeriodoModule } from './periodo/periodo.module';
 import { Periodo } from './periodo/entities/periodo.entity';
 import { Remedio } from './remedio/entities/remedio.entity';
 import { RemediomModule } from './remedio/remedio.module';
+import { AuthModule } from './auth/auth.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -22,8 +24,9 @@ import { RemediomModule } from './remedio/remedio.module';
     UsuarioModule,
     PeriodoModule,
     RemediomModule,
+    AuthModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule {}

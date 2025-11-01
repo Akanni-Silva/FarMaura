@@ -9,10 +9,15 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { PeriodoService } from '../services/periodo.service';
 import { Periodo } from '../entities/periodo.entity';
+import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Periodos')
+@UseGuards(JwtAuthGuard)
 @Controller('/periodos')
 export class PeriodoController {
   constructor(private readonly periodoService: PeriodoService) {}
@@ -29,10 +34,10 @@ export class PeriodoController {
     return this.periodoService.findById(id);
   }
 
-  @Get('/periodo/:periodo')
+  @Get('/periodo/:nome')
   @HttpCode(HttpStatus.OK)
-  findAllBydescricao(@Param('periodo') periodo: string): Promise<Periodo[]> {
-    return this.periodoService.findAllByPeriodo(periodo);
+  findAllBydescricao(@Param('nome') nome: string): Promise<Periodo[]> {
+    return this.periodoService.findAllByPeriodo(nome);
   }
 
   @Post()

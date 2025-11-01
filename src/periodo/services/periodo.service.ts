@@ -31,7 +31,7 @@ export class PeriodoService {
   async findAllByPeriodo(periodo: string): Promise<Periodo[]> {
     return await this.periodoRepository.find({
       where: {
-        periodo: ILike(`%${periodo}%`),
+        nome: ILike(`%${periodo}%`),
       },
     });
   }
