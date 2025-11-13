@@ -1,98 +1,152 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# FarMaura API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Servidor backend para um aplicativo de controle de agenda de remédios, focado no público idoso. Permite o cadastro, consulta, atualização e remoção de medicamentos, associa horários de uso e usuários, fornecendo uma camada segura via autenticação JWT.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tecnologias Utilizadas
 
-## Description
+- [NestJS](https://nestjs.com/): Framework Node.js para construção de APIs robustas em TypeScript.
+- [TypeORM](https://typeorm.io/): ORM para integração com bancos de dados relacionais.
+- JWT (JSON Web Token): Autenticação e autorização das rotas protegidas.
+- Swagger: Documentação automática acessível via `/swagger`.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Funcionalidades Principais
 
-## Project setup
+- **CRUD de Remédios**: Cadastro, consulta, alteração e exclusão de medicamentos.
+- **Associação a Usuário e Período**: Cada remédio é vinculado a um usuário e a um período/hora para administração.
+- **Proteção de Rotas**: Acesso apenas com autenticação JWT. 
+- **API Documentada com Swagger**: Navegação e testes fáceis das rotas disponíveis.
 
-```bash
-$ npm install
+## Estrutura das Entidades
+
+- **Remédio**: Nome, dose em mg, associado a período e usuário.
+- **Período**: Nome e horário.
+- **Usuário**: (Definição e autenticação via módulo próprio).
+
+## Guia de Instalação e Uso
+
+### 1. Pré-requisitos
+
+- Node.js (versão >= 14)
+- npm
+- Banco de dados compatível (por padrão, PostgreSQL)
+- Variáveis de ambiente (.env) configuradas (verifique exemplo .env)
+
+### 2. Instalação
+
+```sh
+npm install
 ```
 
-## Compile and run the project
+### 3. Execução
 
-```bash
-# development
-$ npm run start
+Ambiente de desenvolvimento:
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```sh
+npm run start:dev
 ```
 
-## Run tests
+Ambiente de produção:
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```sh
+npm run start:prod
 ```
 
-## Deployment
+O servidor será iniciado na porta definida em `process.env.PORT` (padrão 4000).
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+### 4. Testes
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+```sh
+npm run test          # Testes unitários
+npm run test:e2e      # Testes end-to-end
+npm run test:cov      # Cobertura de testes
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 5. Documentação da API
 
-## Resources
+Após iniciar o servidor, acesse:
 
-Check out a few resources that may come in handy when working with NestJS:
+```
+http://localhost:4000/swagger
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+para explorar, consultar e testar todos os endpoints da API.
 
-## Support
+### 6. Exemplos de Uso das Rotas
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+> **Todas as rotas de remédios exigem autenticação via JWT.**
 
-## Stay in touch
+#### Cadastro de Remédio (POST /remedios)
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```http
+POST /remedios
+Authorization: Bearer <token>
+Content-Type: application/json
 
-## License
+{
+  "nome": "Paracetamol",
+  "doseMg": 500,
+  "periodo": {"id": 1},
+  "usuario": {"id": 10}
+}
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+#### Listagem de Remédios (GET /remedios)
+
+```http
+GET /remedios
+Authorization: Bearer <token>
+```
+
+#### Consulta por Nome (GET /remedios/nome/:nome)
+
+```http
+GET /remedios/nome/Paracetamol
+Authorization: Bearer <token>
+```
+
+#### Alteração (PUT /remedios)
+
+```http
+PUT /remedios
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "id": 1,
+  "nome": "Dipirona",
+  "doseMg": 500,
+  "periodo": {"id": 1},
+  "usuario": {"id": 10}
+}
+```
+
+#### Remoção (DELETE /remedios/:id)
+
+```http
+DELETE /remedios/1
+Authorization: Bearer <token>
+```
+
+### 7. Ambiente (.env)
+
+Crie um arquivo `.env` na raiz do projeto, exemplo:
+
+```
+PORT=4000
+DATABASE_URL=postgres://usuario:senha@localhost:5432/farmaura
+JWT_SECRET=sua_chave_secreta
+```
+
+Adapte conforme seu banco de dados e configurações locais.
+
+## Contribuição
+
+Sinta-se livre para abrir issues e pull requests!
+
+## Autor
+
+Akanni Silva - [GitHub](https://github.com/Akanni-Silva) - [Email](mailto:akanni029@gmail.com)
+
+## Licença
+
+MIT
