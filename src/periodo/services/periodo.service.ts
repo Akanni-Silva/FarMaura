@@ -3,12 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Periodo } from '../entities/periodo.entity';
 import { ILike, Repository } from 'typeorm';
 import { DeleteResult } from 'typeorm/browser';
+import { UsuarioService } from '../../usuario/services/usuario.service';
 
 @Injectable()
 export class PeriodoService {
   constructor(
     @InjectRepository(Periodo)
-    private readonly periodoRepository: Repository<Periodo>,
+    private periodoRepository: Repository<Periodo>,
+    private usuarioService: UsuarioService,
   ) {}
 
   async findAll(): Promise<Periodo[]> {
@@ -37,11 +39,13 @@ export class PeriodoService {
   }
 
   async create(periodo: Periodo): Promise<Periodo> {
+    await this.usuarioService.findById(periodo.usuario.id);
     return await this.periodoRepository.save(periodo);
   }
 
   async update(periodo: Periodo): Promise<Periodo> {
     await this.findById(periodo.id);
+    await this.usuarioService.findById(periodo.usuario.id);
 
     return await this.periodoRepository.save(periodo);
   }
