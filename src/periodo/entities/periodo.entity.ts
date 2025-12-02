@@ -1,7 +1,14 @@
 import { IsNotEmpty } from 'class-validator';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Remedio } from '../../remedio/entities/remedio.entity';
 import { ApiProperty } from '@nestjs/swagger';
+import { Usuario } from '../../usuario/entities/ususario.entity';
 
 @Entity({ name: 'tb_periodos' })
 export class Periodo {
@@ -22,4 +29,8 @@ export class Periodo {
   @ApiProperty({ type: () => Remedio })
   @OneToMany(() => Remedio, (remedio) => remedio.periodo)
   remedios: Remedio[];
+
+  @ApiProperty({ type: () => Usuario })
+  @ManyToOne(() => Usuario, (usuario) => usuario.periodos)
+  usuario: Usuario;
 }
