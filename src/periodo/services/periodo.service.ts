@@ -14,7 +14,11 @@ export class PeriodoService {
   ) {}
 
   async findAll(): Promise<Periodo[]> {
-    return await this.periodoRepository.find();
+    return await this.periodoRepository.find({
+      relations: {
+        usuario: true,
+      },
+    });
   }
 
   async findById(id: number): Promise<Periodo> {
@@ -24,7 +28,7 @@ export class PeriodoService {
       },
     });
     if (!periodo) {
-      throw new HttpException('Tema não encontrado', HttpStatus.NOT_FOUND);
+      throw new HttpException('Periodo não encontrado', HttpStatus.NOT_FOUND);
     }
 
     return periodo;
